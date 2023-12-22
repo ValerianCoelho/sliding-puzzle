@@ -1,19 +1,25 @@
 <script>
-
+  import SlidingPuzzle from "./Components/SlidingPuzzle.svelte";
 </script>
 
-<main>
-  <div class="img"></div>
+<main class="main">
+  <SlidingPuzzle 
+    rows = 3
+    cols = 3
+    src = 'src\Assets\house.jpg'
+  />
 </main>
 
 <style>
-  .img {
-    width: 500px;
-    height: 300px;
-    background-image: url('./Assets/house.jpg');
-    background-size: cover;
-    background-repeat: no-repeat;
-    background-position: 100px 100px; 
-    background-color: red;
+  :global(*) {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  .main {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
   }
 </style>
