@@ -6,7 +6,7 @@
   <SlidingPuzzle 
     rows = 3
     cols = 3
-    src = 'src\Assets\house.jpg'
+    src = 'src/Assets/house.jpg'
   />
 </main>
 
