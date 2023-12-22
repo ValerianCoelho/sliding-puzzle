@@ -1,10 +1,32 @@
 <script>
-  export let rows = 5;
-  export let cols = 5;
+  import { onMount } from "svelte";
+
+  export let rows;
+  export let cols;
   export let src;
+
+  let imgWidth;
+  let imgHeight;
+
+  let puzzlePieceWidth;
+  let puzzlePieceHeight;
 
   const rowIndices = Array.from({length: 5}, (_, index) => index + 1);
   const colIndices = Array.from({length: 5}, (_, index) => index + 1);
+
+  onMount(()=> {
+    const image = new Image();
+    image.src = src;
+
+    image.onload = () => {
+      imgWidth = 400;
+      imgHeight = (400 * image.height) / image.width;
+
+      puzzlePieceWidth = imgWidth / cols;
+      puzzlePieceHeight = imgHeight / rows;
+    };
+  })
+
 </script>
 
 <div class="sliding-puzzle-container">
@@ -13,15 +35,20 @@
     {#each colIndices as j}
       <div 
         class="puzzle-piece" 
-        style={`transform: translate(${10 * j}px, ${10 * i}px);`}
+        style={
+          ` transform: translate(${puzzlePieceWidth * j}px, ${puzzlePieceHeight * i}px);
+            width: ${puzzlePieceWidth}px;
+            height: ${puzzlePieceHeight}px;
+          `}
       >
-        Hello</div>
+        {i}, {j}
+      </div>
     {/each}
   {/each}
 </div>
 
 <style>
-  img {
+  /* img {
     width: 500px;
     height: 300px;
     background-image: url('./Assets/house.jpg');
@@ -29,7 +56,7 @@
     background-repeat: no-repeat;
     background-position: 100px 100px; 
     background-color: red;
-  }
+  } */
   .sliding-puzzle-container {
     position: relative;
   }
