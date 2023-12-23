@@ -4,8 +4,8 @@
 
 <main class="main">
   <SlidingPuzzle 
-    rows = 3
-    cols = 3
+    rows = 2
+    cols = 2
     src = 'src/Assets/house.jpg'
   />
 </main>
