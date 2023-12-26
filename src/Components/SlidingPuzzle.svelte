@@ -1,5 +1,6 @@
 <script>
   import { onMount } from "svelte";
+  import Piece from "./Piece.svelte";
 
   export let rows;
   export let cols;
@@ -55,19 +56,15 @@
   {#if coords.length > 0}
     {#each rowIndices as i}
       {#each colIndices as j}
-        <div 
-          class="puzzle-piece" 
-          style={` 
-              transform: ${calculatePieceTranslation(i, j)};
-              width: ${puzzlePieceWidth}px;
-              height: ${puzzlePieceHeight}px;
-              background-image: url(${src});
-              background-size: ${imgWidth}px, ${imgHeight}px;
-              background-position: ${calculateImgBgPosition(i, j)}; 
-          `}
-        >
-          {puzzlePieceWidth * coords[convertCoordToIndex(i, j)].x}, {puzzlePieceHeight * coords[convertCoordToIndex(i, j)].y}
-        </div>
+        <Piece
+          translate={calculatePieceTranslation(i, j)}
+          puzzlePieceWidth={puzzlePieceWidth}
+          puzzlePieceHeight={puzzlePieceHeight}
+          imgSrc={src}
+          imgWidth={imgWidth}
+          imgHeight={imgHeight}
+          backgroundPosition={calculateImgBgPosition(i, j)}
+        />
       {/each}
     {/each}
   {/if}
