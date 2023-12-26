@@ -44,6 +44,11 @@
     return backgroundPosition;
   }
 
+  function calculatePieceTranslation(i, j) {
+    const pieceTranslation = `translate(${puzzlePieceWidth * j + (j * 2)}px, ${puzzlePieceHeight * i + (i * 2)}px)`
+    return pieceTranslation;
+  }
+
 </script>
 
 <div class="sliding-puzzle-container">
@@ -53,7 +58,7 @@
         <div 
           class="puzzle-piece" 
           style={` 
-              transform: translate(${puzzlePieceWidth * j + (j * 2)}px, ${puzzlePieceHeight * i + (i * 2)}px);
+              transform: ${calculatePieceTranslation(i, j)};
               width: ${puzzlePieceWidth}px;
               height: ${puzzlePieceHeight}px;
               background-image: url(${src});
