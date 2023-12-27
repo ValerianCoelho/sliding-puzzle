@@ -35,5 +35,6 @@
     position: absolute;
     background-color: red;
     color: white;
+    transition: all 0.2s ease-in-out;
   }
 </style>
