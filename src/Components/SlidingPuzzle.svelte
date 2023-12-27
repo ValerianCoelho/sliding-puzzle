@@ -33,12 +33,14 @@
     for(let i=0; i<rows; i++) {
       let coord = []
       for(let j=0; j<cols; j++) {
+        // if(i==rows-1 && j==cols-1) {
+        //   break;
+        // }
         coord.push({x: j, y: i})
       }
       pieceTranslationCoords.push(coord);
       bgImgCoords.push(coord);
     }
-    console.log(pieceTranslationCoords)
     console.log(bgImgCoords)
   })
 
@@ -48,18 +50,19 @@
   {#if pieceTranslationCoords.length > 0}
     {#each rowIndices as i}
       {#each colIndices as j}
-        <Piece
-          x={j}
-          y={i}
-          
-          imgSrc={src}
-          imgWidth={imgWidth}
-          imgHeight={imgHeight}
+        {#if (i!=rows-1 || j!=cols-1)}
+          <Piece
+            translation={pieceTranslationCoords[i][j]}
+            position={bgImgCoords[i][j]}
+            
+            imgSrc={src}
+            imgWidth={imgWidth}
+            imgHeight={imgHeight}
 
-          puzzlePieceWidth={puzzlePieceWidth}
-          puzzlePieceHeight={puzzlePieceHeight}
-
-        />
+            puzzlePieceWidth={puzzlePieceWidth}
+            puzzlePieceHeight={puzzlePieceHeight}
+          />
+        {/if}
       {/each}
     {/each}
   {/if}
@@ -73,5 +76,9 @@
     position: absolute;
     background-color: red;
     color: white;
+  }
+  .test {
+    z-index: 3;
+    color: red;
   }
 </style>

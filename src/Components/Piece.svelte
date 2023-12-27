@@ -1,6 +1,6 @@
 <script>
-  export let x;
-  export let y;
+  export let translation;
+  export let position;
 
   export let imgSrc;
   export let imgWidth;
@@ -9,13 +9,13 @@
   export let puzzlePieceWidth;
   export let puzzlePieceHeight;
 
-  function calculateBgPosition(x, y) {
-    const backgroundPosition = `-${puzzlePieceWidth * x}px -${puzzlePieceHeight * y}px`;
+  function calculateBgPosition() {
+    const backgroundPosition = `-${puzzlePieceWidth * position.x}px -${puzzlePieceHeight * position.y}px`;
     return backgroundPosition;
   }
 
-  function calculatePieceTranslation(x, y) {
-    const pieceTranslation = `translate(${puzzlePieceWidth * x + (x * 2)}px, ${puzzlePieceHeight * y + (y * 2)}px)`
+  function calculatePieceTranslation() {
+    const pieceTranslation = `translate(${puzzlePieceWidth * translation.x + (translation.x * 2)}px, ${puzzlePieceHeight * translation.y + (translation.y * 2)}px)`
     return pieceTranslation;
   }
 
@@ -24,9 +24,9 @@
 <div 
   class="puzzle-piece" 
   style={` 
-      transform: ${calculatePieceTranslation(x, y)};
+      transform: ${calculatePieceTranslation()};
       background-image: url(${imgSrc});
-      background-position: ${calculateBgPosition(x, y)}; 
+      background-position: ${calculateBgPosition()}; 
       background-size: ${imgWidth}px, ${imgHeight}px;
       width: ${puzzlePieceWidth}px;
       height: ${puzzlePieceHeight}px;
