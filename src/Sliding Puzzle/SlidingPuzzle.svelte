@@ -82,7 +82,7 @@
               let coord = pieceTranslationCoords[i][j];
               let x = Math.abs(freeSpace.x - coord.x);
               let y = Math.abs(freeSpace.y - coord.y);
-              if(x * y == 0 && (x <= 1 && y <= 1) ) {
+              if(x + y <= 1) {
                 [pieceTranslationCoords[i][j], freeSpace] = [freeSpace, pieceTranslationCoords[i][j]]
               }
             }}

@@ -1,5 +1,5 @@
 <script>
-  import SlidingPuzzle from "./Components/SlidingPuzzle.svelte";
+  import SlidingPuzzle from "./Sliding Puzzle/SlidingPuzzle.svelte";
 </script>
 
 <main class="main">
