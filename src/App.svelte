@@ -4,8 +4,10 @@
 
 <main class="main">
   <SlidingPuzzle 
-    rows = 6
-    cols = 6
+    gap = 1
+    rows = 4
+    cols = 4
+    width = 600
     src = 'src/Assets/house.jpg'
   />
 </main>
@@ -17,9 +19,9 @@
     box-sizing: border-box;
   }
   .main {
-    /* display: flex;
+    display: flex;
     justify-content: center;
     align-items: center;
-    height: 100vh; */
+    height: 100vh;
   }
 </style>

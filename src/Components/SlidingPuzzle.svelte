@@ -5,9 +5,14 @@
   export let rows;
   export let cols;
   export let src;
+  export let width;
+  export let gap;
 
   let imgWidth;
   let imgHeight;
+
+  $:physicalImgWidth = parseFloat(imgWidth) + (cols-1 * gap);
+  $:physicalImgHeight = parseFloat(imgHeight) + (rows-1 * gap);
 
   let puzzlePieceWidth;
   let puzzlePieceHeight;
@@ -32,8 +37,8 @@
     image.src = src;
 
     image.onload = () => {
-      imgWidth = 400;
-      imgHeight = (400 * image.height) / image.width;
+      imgWidth = width;
+      imgHeight = (width * image.height) / image.width;
 
       puzzlePieceWidth = imgWidth / cols;
       puzzlePieceHeight = imgHeight / rows;
@@ -56,7 +61,7 @@
 
 </script>
 
-<div class="sliding-puzzle-container">
+<div class="sliding-puzzle-container" style={`width: ${physicalImgWidth}px; height: ${physicalImgHeight}px;`}>
   {#if pieceTranslationCoords.length > 0}
     {#each rowIndices as i}
       {#each colIndices as j}
@@ -65,6 +70,7 @@
             translation={pieceTranslationCoords[i][j]}
             position={bgImgCoords[i][j]}
             
+            gap={gap}
             imgSrc={src}
             imgWidth={imgWidth}
             imgHeight={imgHeight}
