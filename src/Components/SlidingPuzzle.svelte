@@ -12,6 +12,8 @@
   let puzzlePieceWidth;
   let puzzlePieceHeight;
 
+  let freeSpace = {x: cols-1, y: rows-1};
+
   const rowIndices = Array.from({length: rows}, (_, index) => index);
   const colIndices = Array.from({length: cols}, (_, index) => index);
 
@@ -69,6 +71,10 @@
 
             puzzlePieceWidth={puzzlePieceWidth}
             puzzlePieceHeight={puzzlePieceHeight}
+
+            on:click={()=>{
+              [pieceTranslationCoords[i][j], freeSpace] = [freeSpace, pieceTranslationCoords[i][j]]
+            }}
           />
         {/if}
       {/each}

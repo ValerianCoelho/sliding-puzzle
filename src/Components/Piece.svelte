@@ -9,30 +9,25 @@
   export let puzzlePieceWidth;
   export let puzzlePieceHeight;
 
-  function calculateBgPosition() {
-    const backgroundPosition = `-${puzzlePieceWidth * position.x}px -${puzzlePieceHeight * position.y}px`;
-    return backgroundPosition;
-  }
-
-  function calculatePieceTranslation() {
-    const pieceTranslation = `translate(${puzzlePieceWidth * translation.x + (translation.x * 2)}px, ${puzzlePieceHeight * translation.y + (translation.y * 2)}px)`
-    return pieceTranslation;
-  }
+  $:Translation = `translate(${puzzlePieceWidth * translation.x + (translation.x * 2)}px, ${puzzlePieceHeight * translation.y + (translation.y * 2)}px)`
+  $:Position = `-${puzzlePieceWidth * position.x}px -${puzzlePieceHeight * position.y}px`;
 
 </script>
 
-<div 
+<!-- svelte-ignore a11y-click-events-have-key-events -->
+<!-- svelte-ignore a11y-no-static-element-interactions -->
+<div on:click
   class="puzzle-piece" 
   style={` 
-      transform: ${calculatePieceTranslation()};
+      transform: ${Translation};
       background-image: url(${imgSrc});
-      background-position: ${calculateBgPosition()}; 
+      background-position: ${Position}; 
       background-size: ${imgWidth}px, ${imgHeight}px;
       width: ${puzzlePieceWidth}px;
       height: ${puzzlePieceHeight}px;
   `}
 >
-  {position.x}, {position.y} <br> {translation.x}, {translation.y}
+  {translation.x}, {translation.y}
 </div>
 
 <style>
