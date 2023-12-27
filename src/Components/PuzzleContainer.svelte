@@ -3,6 +3,10 @@
     export let rows;
     export let cols;
     export let src;
+
+    $:{
+      console.log(rows, cols, src)
+    }
   </script>
   
   <div class="puzzle-container">

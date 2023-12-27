@@ -10,10 +10,10 @@
       src = e.target.value
     }
     else if(source === 'rows') {
-      rows = e.target.value
+      rows = parseInt(e.target.value);
     }
     else if(source === 'cols') {
-      cols = e.target.value;
+      cols = parseInt(e.target.value);
     }
   }
 </script>
