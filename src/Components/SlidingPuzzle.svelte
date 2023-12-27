@@ -15,7 +15,8 @@
   const rowIndices = Array.from({length: rows}, (_, index) => index);
   const colIndices = Array.from({length: cols}, (_, index) => index);
 
-  $:coords = [];
+  $:pieceTranslationCoords = []; // this will not be randomized, it will change as the user plays
+  $:bgImgCoords = []; // this will be randomized only once at the begining and after that it wont change
 
   onMount(()=> {
     const image = new Image();
@@ -30,40 +31,34 @@
     };
 
     for(let i=0; i<rows; i++) {
+      let coord = []
       for(let j=0; j<cols; j++) {
-        coords.push({x: j, y: i})
+        coord.push({x: j, y: i})
       }
+      pieceTranslationCoords.push(coord);
+      bgImgCoords.push(coord);
     }
+    console.log(pieceTranslationCoords)
+    console.log(bgImgCoords)
   })
-
-  function convertCoordToIndex(i, j) {
-    return i * cols + j;
-  }
-
-  function calculateImgBgPosition(i, j) {
-    const backgroundPosition = `-${puzzlePieceWidth * coords[convertCoordToIndex(i, j)].x}px -${puzzlePieceHeight * coords[convertCoordToIndex(i, j)].y}px`;
-    return backgroundPosition;
-  }
-
-  function calculatePieceTranslation(i, j) {
-    const pieceTranslation = `translate(${puzzlePieceWidth * j + (j * 2)}px, ${puzzlePieceHeight * i + (i * 2)}px)`
-    return pieceTranslation;
-  }
 
 </script>
 
 <div class="sliding-puzzle-container">
-  {#if coords.length > 0}
+  {#if pieceTranslationCoords.length > 0}
     {#each rowIndices as i}
       {#each colIndices as j}
         <Piece
-          translate={calculatePieceTranslation(i, j)}
-          puzzlePieceWidth={puzzlePieceWidth}
-          puzzlePieceHeight={puzzlePieceHeight}
+          x={j}
+          y={i}
+          
           imgSrc={src}
           imgWidth={imgWidth}
           imgHeight={imgHeight}
-          backgroundPosition={calculateImgBgPosition(i, j)}
+
+          puzzlePieceWidth={puzzlePieceWidth}
+          puzzlePieceHeight={puzzlePieceHeight}
+
         />
       {/each}
     {/each}
