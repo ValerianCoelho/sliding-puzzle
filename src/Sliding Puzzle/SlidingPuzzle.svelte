@@ -24,6 +24,7 @@
 
   $:pieceTranslationCoords = []; // this will not be randomized, it will change as the user plays
   $:bgImgCoords = []; // this will be randomized only once at the begining and after that it wont change
+  $:coords = [];
 
   function shuffleArray(array) {
     for (let i = array.length - 1; i > 0; i--) {
@@ -57,40 +58,42 @@
       shuffleArray(tempCoord);
       bgImgCoords.push(tempCoord);
     }
+    coords = pieceTranslationCoords.map((value, RowIndex)=>{
+      return value.map((subvalue, ColIndex)=>{
+        return { translation: subvalue ,background: bgImgCoords[RowIndex][ColIndex]};
+      })
+    })
+    console.log(coords)
   })
 
 </script>
 
 <div class="sliding-puzzle-container" style={`width: ${physicalImgWidth}px; height: ${physicalImgHeight}px;`}>
-  {#if pieceTranslationCoords.length > 0}
-    {#each rowIndices as i}
-      {#each colIndices as j}
-        {#if i!=rows-1 || j!=cols-1}
-          <Piece
-            translation={pieceTranslationCoords[i][j]}
-            position={bgImgCoords[i][j]}
-            
-            gap={gap}
-            imgSrc={src}
-            imgWidth={imgWidth}
-            imgHeight={imgHeight}
+  {#each coords as value}
+    {#each value as subvalue}
+      <Piece
+        translation={subvalue.translation}
+        position={subvalue.background}
+        
+        gap={gap}
+        imgSrc={src}
+        imgWidth={imgWidth}
+        imgHeight={imgHeight}
 
-            puzzlePieceWidth={puzzlePieceWidth}
-            puzzlePieceHeight={puzzlePieceHeight}
+        puzzlePieceWidth={puzzlePieceWidth}
+        puzzlePieceHeight={puzzlePieceHeight}
 
-            on:click={()=>{
-              let coord = pieceTranslationCoords[i][j];
-              let x = Math.abs(freeSpace.x - coord.x);
-              let y = Math.abs(freeSpace.y - coord.y);
-              if(x + y <= 1) {
-                [pieceTranslationCoords[i][j], freeSpace] = [freeSpace, pieceTranslationCoords[i][j]]
-              }
-            }}
-          />
-        {/if}
-      {/each}
+        on:click={()=>{
+          let coord = subvalue.translation;
+          let x = Math.abs(freeSpace.x - coord.x);
+          let y = Math.abs(freeSpace.y - coord.y);
+          if(x + y <= 1) {
+            [subvalue.translation, freeSpace] = [freeSpace, subvalue.translation]
+          }
+        }}
+      />
     {/each}
-  {/if}
+  {/each}
 </div>
 
 <style>
