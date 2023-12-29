@@ -10,21 +10,14 @@
 
   let imgWidth;
   let imgHeight;
-
-  $:physicalImgWidth = parseFloat(imgWidth) + (cols-1 * gap);
-  $:physicalImgHeight = parseFloat(imgHeight) + (rows-1 * gap);
-
+  let physicalImgWidth;
+  let physicalImgHeight;
   let puzzlePieceWidth;
   let puzzlePieceHeight;
-
-  let freeSpace = {x: cols-1, y: rows-1};
-
-  const rowIndices = Array.from({length: rows}, (_, index) => index);
-  const colIndices = Array.from({length: cols}, (_, index) => index);
-
-  $:pieceTranslationCoords = []; // this will not be randomized, it will change as the user plays
-  $:bgImgCoords = []; // this will be randomized only once at the begining and after that it wont change
-  $:coords = [];
+  let freeSpace = { x: cols - 1, y: rows - 1 };
+  let pieceTranslationCoords = [];
+  let bgImgCoords = [];
+  let coords = [];
 
   function shuffleArray(array) {
     for (let i = array.length - 1; i > 0; i--) {
@@ -33,18 +26,21 @@
     }
   }
 
-  onMount(()=> {
+  $: {
     const image = new Image();
     image.src = src;
 
     image.onload = () => {
       imgWidth = width;
       imgHeight = (width * image.height) / image.width;
-
+      physicalImgWidth = parseFloat(imgWidth) + (cols - 1) * gap;
+      physicalImgHeight = parseFloat(imgHeight) + (rows - 1) * gap;
       puzzlePieceWidth = imgWidth / cols;
       puzzlePieceHeight = imgHeight / rows;
     };
 
+    pieceTranslationCoords = [];
+    bgImgCoords = [];
     for (let i = 0; i < rows; i++) {
       let coord = [];
       for (let j = 0; j < cols; j++) {
@@ -54,17 +50,17 @@
         coord.push({ x: j, y: i });
       }
       pieceTranslationCoords.push(coord);
-      const tempCoord = [...coord]
+      const tempCoord = [...coord];
       shuffleArray(tempCoord);
       bgImgCoords.push(tempCoord);
     }
-    coords = pieceTranslationCoords.map((value, RowIndex)=>{
-      return value.map((subvalue, ColIndex)=>{
-        return { translation: subvalue ,background: bgImgCoords[RowIndex][ColIndex]};
-      })
-    })
-    console.log(coords)
-  })
+    coords = pieceTranslationCoords.map((value, RowIndex) => {
+      return value.map((subvalue, ColIndex) => {
+        return { translation: subvalue, background: bgImgCoords[RowIndex][ColIndex] };
+      });
+    });
+    console.log(coords);
+  }
 
 </script>
 
@@ -74,21 +70,19 @@
       <Piece
         translation={subvalue.translation}
         position={subvalue.background}
-        
         gap={gap}
         imgSrc={src}
         imgWidth={imgWidth}
         imgHeight={imgHeight}
-
         puzzlePieceWidth={puzzlePieceWidth}
         puzzlePieceHeight={puzzlePieceHeight}
-
-        on:click={()=>{
+        on:click={() => {
+          console.log("clicked")
           let coord = subvalue.translation;
           let x = Math.abs(freeSpace.x - coord.x);
           let y = Math.abs(freeSpace.y - coord.y);
-          if(x + y <= 1) {
-            [subvalue.translation, freeSpace] = [freeSpace, subvalue.translation]
+          if (x + y <= 1) {
+            [subvalue.translation, freeSpace] = [freeSpace, subvalue.translation];
           }
         }}
       />
@@ -99,14 +93,5 @@
 <style>
   .sliding-puzzle-container {
     position: relative;
-  }
-  .puzzle-piece {
-    position: absolute;
-    background-color: red;
-    color: white;
-  }
-  .test {
-    z-index: 3;
-    color: red;
   }
 </style>
