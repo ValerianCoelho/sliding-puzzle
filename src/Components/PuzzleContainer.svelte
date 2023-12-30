@@ -3,6 +3,7 @@
   export let rows;
   export let cols;
   export let src;
+  export let width;
 </script>
   
 <div class="puzzle-container">
@@ -13,7 +14,7 @@
           gap = 1
           rows = {rows}
           cols = {cols}
-          width = 400
+          width = {width}
           src = {src}
         />
       </div>
@@ -42,6 +43,10 @@
                 1px 1px 2px 0px rgba(0, 0, 0, 0.25), 
                 -1px -1px 2.1px 0px #FFF, 
                 -2px -2px 0.8px 0px #FFF;
+    @media (width < 450px) {
+      padding: 20px;
+    }
+    
   }
   .inner-container {
     background-color: blue;
