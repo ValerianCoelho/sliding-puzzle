@@ -28,7 +28,6 @@
       height: ${puzzlePieceHeight}px;
   `}
 >
-  {translation.x}, {translation.y}
 </div>
 
 <style>

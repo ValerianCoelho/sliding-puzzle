@@ -38,26 +38,44 @@
     box-sizing: border-box;
     user-select: none;
   }
+  :global(body) {
+    background-color: #E0E0E0;
+  }
+
   .main {
+    margin-top: 40px;
     display: flex;
     justify-content: center;
     align-items: center;
     flex-direction: column;
-    height: 100vh;
-    background-color: #E0E0E0;
   }
+
   .input-container {
     display: flex;
     flex-direction: column;
     gap: 4px;
     padding: 16px;
   }
+
   input {
     outline: none;
-    border: 1px solid rgba(0, 0, 0, 0.5);
-    background-color: #E0E0E0;
+    border: none;
+    color: rgb(86, 86, 86);
+    background-color: hsl(0, 0%, 88%);
     padding: 10px 5px;
     width: 450px;
-    border-radius: 5px;
+    border-radius: 10px;
+    box-shadow: 2px 2px 7px 0px rgba(0, 0, 0, 0.25), 
+                1px 1px 2px 0px rgba(0, 0, 0, 0.25), 
+                -1px -1px 2.1px 0px #FFF, 
+                -2px -2px 0.8px 0px #FFF;
+    transition: box-shadow 0.3s ease-in-out;
+  }
+
+  input:focus {
+    box-shadow: 1.5px 1.5px 7px 0px rgba(0, 0, 0, 0.25), 
+                1px 1px 1.5px 0px rgba(0, 0, 0, 0.25), 
+                -1px -1px 2.1px 0px #FFF, 
+              -1.5px -1.5px 0.8px 0px #FFF;
   }
 </style>
