@@ -1,4 +1,5 @@
 <script>
+  // @ts-ignore
   import { onMount } from "svelte";
   import Piece from "./Piece.svelte";
 
@@ -26,7 +27,8 @@
     }
   }
 
-  $: {
+ // @ts-ignore
+   $: {
     const image = new Image();
     image.src = src;
 
@@ -34,6 +36,7 @@
       imgWidth = width;
       imgHeight = (width * image.height) / image.width;
       physicalImgWidth = parseFloat(imgWidth) + (cols - 1) * gap;
+      // @ts-ignore
       physicalImgHeight = parseFloat(imgHeight) + (rows - 1) * gap;
       puzzlePieceWidth = imgWidth / cols;
       puzzlePieceHeight = imgHeight / rows;
@@ -54,12 +57,16 @@
       shuffleArray(tempCoord);
       bgImgCoords.push(tempCoord);
     }
-    coords = pieceTranslationCoords.map((value, RowIndex) => {
+    coords = []
+  }
+  $:{
+    if(coords.length == 0) {
+      coords = pieceTranslationCoords.map((value, RowIndex) => {
       return value.map((subvalue, ColIndex) => {
         return { translation: subvalue, background: bgImgCoords[RowIndex][ColIndex] };
       });
     });
-    console.log(coords);
+    }
   }
 
 </script>
