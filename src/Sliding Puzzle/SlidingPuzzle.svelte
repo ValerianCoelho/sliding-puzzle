@@ -15,11 +15,11 @@
   let physicalImgHeight;
   let puzzlePieceWidth;
   let puzzlePieceHeight;
-  let freeSpace = { x: cols - 1, y: rows - 1 };
   let pieceTranslationCoords = [];
   let bgImgCoords = [];
   let coords = [];
-
+  $:freeSpace = { x: cols - 1, y: rows - 1, src}; // src is only added here as a dependency
+  
   function shuffleArray(array) {
     for (let i = array.length - 1; i > 0; i--) {
       const j = Math.floor(Math.random() * (i + 1));
@@ -29,6 +29,7 @@
 
  // @ts-ignore
    $: {
+    console.log("Reacted")
     const image = new Image();
     image.src = src;
 
