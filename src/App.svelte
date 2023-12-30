@@ -1,4 +1,5 @@
 <script>
+  import { onMount } from "svelte";
   import PuzzleContainer from "./Components/PuzzleContainer.svelte";
 
   let rows = 4;
@@ -20,6 +21,10 @@
   // Update width on window resize
   window.addEventListener('resize', () => {
     width = calculateWidth(); // Call a function to calculate the new width
+  });
+
+  onMount(() => {
+    width = calculateWidth();
   });
 
   function calculateWidth() {
@@ -77,7 +82,7 @@
     background-color: hsl(0, 0%, 88%);
     padding: 10px 5px;
     width: 100%;
-    border-radius: 10px;
+    border-radius: 4px;
     box-shadow: 2px 2px 7px 0px rgba(0, 0, 0, 0.25), 
                 1px 1px 2px 0px rgba(0, 0, 0, 0.25), 
                 -1px -1px 2.1px 0px #FFF, 
